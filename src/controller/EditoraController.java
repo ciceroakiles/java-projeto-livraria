@@ -26,7 +26,7 @@ public class EditoraController {
 
 	private TableView<Editora> tabela = new TableView<Editora>();
 	private Editora editora;
-	private long idSelect = -1;
+	private int idSelect = -1;
 	
 	// CAMPOS, PARTE 1
 	private TextField[] txtCampos = new TextField[6];
@@ -123,7 +123,7 @@ public class EditoraController {
                     //System.out.println(valorCelula);
             		//System.out.println("Linha: " + tabelaPos.getRow());
                     editora = (Editora) tabelaPos.getTableView().getItems().get(tabelaPos.getRow());
-                    idSelect = editora.getIdEditora().longValue();
+                    idSelect = editora.getIdEditora();
                     //System.out.println("ID selecionado: " + idSelect);
                     atualizarCampos();
             	}

@@ -25,7 +25,7 @@ public class LivroController {
 
 	private TableView<Livro> tabela = new TableView<Livro>();
 	private Livro livro;
-	private long idSelect = -1;
+	private int idSelect = -1;
 	
 	// CAMPOS, PARTE 1 - txtTitulo, txtIdioma, txtGenero, txtAno
 	private TextField[] txtCampos = new TextField[4];
@@ -122,7 +122,7 @@ public class LivroController {
                     //System.out.println(valorCelula);
             		//System.out.println("Linha: " + tabelaPos.getRow());
                     livro = (Livro) tabelaPos.getTableView().getItems().get(tabelaPos.getRow());
-                    idSelect = livro.getIdLivro().longValue();
+                    idSelect = livro.getIdLivro();
                     //System.out.println("ID selecionado: " + idSelect);
                     atualizarCampos();
             	}

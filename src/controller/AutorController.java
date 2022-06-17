@@ -27,7 +27,7 @@ public class AutorController {
 
 	private TableView<Autor> tabela = new TableView<Autor>();
 	private Autor autor;
-	private long idSelect = -1;
+	private int idSelect = -1;
 	
 	// CAMPOS, PARTE 1
 	private TextField[] txtCampos = new TextField[4];
@@ -123,7 +123,7 @@ public class AutorController {
             	if (!obsList.isEmpty()) {
             		TablePosition<?, ?> tabelaPos = (TablePosition<?, ?>) obsList.get(0);
                     autor = (Autor) tabelaPos.getTableView().getItems().get(tabelaPos.getRow());
-                    idSelect = autor.getIdAutor().longValue();
+                    idSelect = autor.getIdAutor();
                     atualizarCampos();
             	}
             }

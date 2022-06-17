@@ -10,9 +10,9 @@ public interface IEdicaoDao {
 
 	public Edicao ler(String txt);
 
-	public ArrayList<Edicao> listar();
-
 	public void atualizar(Edicao obj);
 
 	public void deletar(String txt);
+
+	public ArrayList<Edicao> listar();
 }

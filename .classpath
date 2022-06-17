@@ -1,12 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-11.0.11.9-hotspot">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/castle/eclipse/workspace/java-projeto-livraria/lib/postgresql-42.2.20.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.base.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.controls.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.fxml.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.graphics.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.media.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.swing.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx.web.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javafx-sdk-18.0.1/lib/javafx-swt.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/antlr4-runtime-4.9.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/byte-buddy-1.12.8.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/classmate-1.5.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/hibernate-commons-annotations-6.0.0.CR1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/hibernate-core-6.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/hibernate-validator-7.0.4.Final.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/istack-commons-runtime-4.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.activation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.activation-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.el-4.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.el-api-4.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.inject-api-2.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.persistence-api-3.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.transaction-api-2.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.validation-api-3.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jakarta.xml.bind-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jandex-2.4.2.Final.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javax.el-api-3.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jaxb-core-3.0.2.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jaxb-runtime-3.0.2.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jboss-logging-3.4.3.Final.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/jtds-1.3.1.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/mysql-connector-java-8.0.28.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/protobuf-java-3.11.4.jar"/>
+	<classpathentry kind="lib" path="D:/java-projeto-livraria/lib/txw2-3.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

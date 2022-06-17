@@ -1,11 +1,34 @@
 package model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "edicoes")
 public class Edicao {
 
+	@Id
+	@Column(name = "isbn")
+	@NotNull
 	private String isbn;
+	
+	@Column(name = "preco")
+	@NotNull
 	private double preco;
+	
+	@Column(name = "anoedicao")
+	@NotNull
 	private int anoedicao;
+	
+	@Column(name = "numpaginas")
+	@NotNull
 	private int numpaginas;
+	
+	@Column(name = "qtdeestoque")
+	@NotNull
 	private int qtdeestoque;
 	
 	public String getIsbn() {

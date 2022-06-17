@@ -1,22 +1,50 @@
 package model;
 
-import java.math.BigInteger;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "editoras")
 public class Editora {
 
-	private BigInteger idEditora;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_editora")
+	@NotNull
+	private int idEditora;
+	
+	@Column(name = "nomeeditora", length = 100)
+	@NotNull
 	private String nomeeditora;
+	
+	@Column(name = "logradendereco", length = 255)
+	@NotNull
 	private String logradendereco;
+	
+	@Column(name = "numendereco")
 	private String numendereco;
+	
+	@Column(name = "complendereco")
 	private String complendereco;
+	
+	@Column(name = "cependereco")
+	@NotNull
 	private String cependereco;
+	
+	@Column(name = "telefone", length = 20)
+	@NotNull
 	private String telefone;
 	
-	public BigInteger getIdEditora() {
+	public int getIdEditora() {
 		return idEditora;
 	}
-	public void setIdEditora(long idEditora) {
-		this.idEditora = BigInteger.valueOf(idEditora);
+	public void setIdEditora(int idEditora) {
+		this.idEditora = idEditora;
 	}
 	public String getNomeeditora() {
 		return nomeeditora;

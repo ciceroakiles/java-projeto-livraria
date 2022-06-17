@@ -1,124 +1,95 @@
 package dao.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Livro;
+import java.util.List;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import dao.iface.ILivroDao;
-import util.ConnectionTest;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import model.Livro;
+import util.HibernateUtil;
 
 public class LivroDaoImpl implements ILivroDao {
 
+	private SessionFactory sf;
+	
+	public LivroDaoImpl() {
+		this.sf = HibernateUtil.getSessionFactory();
+	}
+	
 	@Override
 	public void criar(Livro obj) {
-		try {
-			String query = "insert into livros(titulolivro, idioma, genero, anolivro) values (?, ?, ?, ?)";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			pstmt.setString(1, obj.getTitulolivro());
-			pstmt.setString(2, obj.getIdioma());
-			pstmt.setString(3, obj.getGenero());
-			pstmt.setInt(4, obj.getAnolivro());
-			pstmt.execute();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		EntityManager entityManager = sf.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.persist(obj);
+		transaction.commit();
 	}
 
 	@Override
 	public Livro ler(long id) {
-		Livro livro = new Livro();
-		try {
-			String query = "select * from livros where id_livro = ?";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			pstmt.setObject(1, id);
-			ResultSet result = pstmt.executeQuery();
-			while (result.next()) {
-				// (titulolivro, idioma, genero, anolivro)
-				livro.setTitulolivro(result.getString(2));
-				livro.setIdioma(result.getString(3));
-				livro.setGenero(result.getString(4));
-				livro.setAnolivro(result.getInt(5));
-				livro.setIdlivro(id);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return livro;
-	}
-
-	@Override
-	public ArrayList<Livro> listar() {
-		ArrayList<Livro> livros = new ArrayList<Livro>();
-		try {
-			String query = "select id_livro from livros order by id_livro";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			ResultSet result = pstmt.executeQuery();
-			long l;
-			while (result.next()) {
-				l = result.getLong(1);
-				livros.add(ler(l));
-				//System.out.println(ler(l));
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return livros;
-	}
-
-	@Override
-	public ArrayList<Livro> buscar(String txt) {
-		ArrayList<Livro> livros = new ArrayList<Livro>();
-		txt = "%" + txt + "%";
-		try {
-			String query = "select * from livros where titulolivro like ?";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			pstmt.setString(1, txt);
-			ResultSet result = pstmt.executeQuery();
-			while (result.next()) {
-				Livro livroTemp = new Livro();
-				// (titulolivro, idioma, genero, anolivro)
-				livroTemp.setTitulolivro(result.getString(2));
-				livroTemp.setIdioma(result.getString(3));
-				livroTemp.setGenero(result.getString(4));
-				livroTemp.setAnolivro(result.getInt(5));
-				livroTemp.setIdlivro(result.getLong(1));
-				livros.add(livroTemp);
-				//System.out.println(livroTemp.getIdlivro() + " - " + livroTemp);
-			}
-			//System.out.println("----");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return livros;
+		EntityManager entityManager = sf.createEntityManager();
+		Livro l = entityManager.find(Livro.class, id);
+		return l;
 	}
 
 	@Override
 	public void atualizar(Livro obj) {
-		try {
-			// (titulolivro, idioma, genero, anolivro)
-			String query = "update livros set titulolivro = ?, idioma = ?, genero = ?, anolivro = ? where id_livro = ?";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			pstmt.setString(1, obj.getTitulolivro());
-			pstmt.setString(2, obj.getIdioma());
-			pstmt.setString(3, obj.getGenero());
-			pstmt.setInt(4, obj.getAnolivro());
-			pstmt.setObject(5, obj.getIdLivro());
-			pstmt.execute();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
+		EntityManager entityManager = sf.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.merge(obj);
+		transaction.commit();
 	}
 
 	@Override
 	public void deletar(long id) {
-		try {
-			String query = "delete from livros where id_livro = ?";
-			PreparedStatement pstmt = ConnectionTest.getConnection().prepareStatement(query);
-			pstmt.setObject(1, id);
-			pstmt.execute();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		EntityManager entityManager = sf.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		entityManager.remove(ler(id));
+		transaction.commit();
+	}
+
+	@Override
+	public ArrayList<Livro> listar() {
+		EntityManager entityManager = sf.createEntityManager();
+		Query query = (Query) entityManager.createNativeQuery(montarQuery(null));
+		return gerarLista(query);
+	}
+
+	@Override
+	public ArrayList<Livro> buscar(String txt) {
+		EntityManager entityManager = sf.createEntityManager();
+		Query query = (Query) entityManager.createNativeQuery(montarQuery(txt));
+		return gerarLista(query);
+	}
+
+	private String montarQuery(String txt) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT id_livro, titulolivro, idioma, genero, anolivro FROM livros ");
+		if (txt != null) {
+			buffer.append("WHERE titulolivro LIKE '%");
+			buffer.append(txt);
+			buffer.append("%' ");
 		}
+		buffer.append("ORDER BY id_livro");
+		return buffer.toString();
+	}
+
+	private ArrayList<Livro> gerarLista(Query query) {
+		ArrayList<Livro> livros = new ArrayList<Livro>();
+		List<Object[]> lista = query.getResultList();
+		for (Object[] obj : lista) {
+			Livro l = new Livro();
+			l.setIdlivro(Integer.valueOf(obj[0].toString()));
+			l.setTitulolivro(obj[1].toString());
+			l.setIdioma(obj[2].toString());
+			l.setGenero(obj[3].toString());
+			l.setAnolivro(Integer.valueOf(obj[4].toString()));
+			livros.add(l);
+		}
+		return livros;
 	}
 }

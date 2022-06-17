@@ -10,11 +10,11 @@ public interface IEditoraDao {
 
 	public Editora ler(long id);
 
-	public ArrayList<Editora> listar();
-
-	public ArrayList<Editora> buscar(String txt);
-
 	public void atualizar(Editora obj);
 
 	public void deletar(long id);
+
+	public ArrayList<Editora> listar();
+
+	public ArrayList<Editora> buscar(String txt);
 }

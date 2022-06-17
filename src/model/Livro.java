@@ -1,20 +1,42 @@
 package model;
 
-import java.math.BigInteger;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "livros")
 public class Livro {
 
-	private BigInteger idLivro;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_livro")
+	@NotNull
+	private int idLivro;
+	
+	@Column(name = "titulolivro", length = 100)
+	@NotNull
 	private String titulolivro;
+	
+	@Column(name = "idioma", length = 50)
+	@NotNull
 	private String idioma;
+	
+	@Column(name = "genero", length = 50)
 	private String genero;
+	
+	@Column(name = "anolivro")
 	private int anolivro;
 	
-	public BigInteger getIdLivro() {
+	public int getIdLivro() {
 		return idLivro;
 	}
-	public void setIdlivro(long idLivro) {
-		this.idLivro = BigInteger.valueOf(idLivro);
+	public void setIdlivro(int idLivro) {
+		this.idLivro = idLivro;
 	}
 	public String getTitulolivro() {
 		return titulolivro;
