@@ -1,7 +1,9 @@
 package dao.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import dao.iface.IEdicaoDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -52,7 +54,22 @@ public class EdicaoDaoImpl implements IEdicaoDao {
 
 	@Override
 	public ArrayList<Edicao> listar() {
-		// TODO: Listar edicoes
-		return null;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT isbn, preco, anoedicao, numpaginas, qtdeestoque FROM edicoes ");
+		buffer.append("ORDER BY isbn");
+		EntityManager entityManager = sf.createEntityManager();
+		Query query = (Query) entityManager.createNativeQuery(buffer.toString());
+		ArrayList<Edicao> edicoes = new ArrayList<Edicao>();
+		List<Object[]> lista = query.getResultList();
+		for (Object[] obj : lista) {
+			Edicao ec = new Edicao();
+			ec.setIsbn(obj[0].toString());
+			ec.setPreco(Double.valueOf(obj[1].toString()));
+			ec.setAnoedicao(Integer.valueOf(obj[2].toString()));
+			ec.setNumpaginas(Integer.valueOf(obj[3].toString()));
+			ec.setQtdeestoque(Integer.valueOf(obj[4].toString()));
+			edicoes.add(ec);
+		}
+		return edicoes;
 	}
 }

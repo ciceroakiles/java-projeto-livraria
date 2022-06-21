@@ -1,7 +1,9 @@
 package dao.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import dao.iface.IAutorDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -52,13 +54,42 @@ public class AutorDaoImpl implements IAutorDao {
 
 	@Override
 	public ArrayList<Autor> listar() {
-		// TODO: Listar autores
-		return null;
+		EntityManager entityManager = sf.createEntityManager();
+		Query query = (Query) entityManager.createNativeQuery(montarQuery(null));
+		return gerarLista(query);
 	}
 
 	@Override
 	public ArrayList<Autor> buscar(String txt) {
-		// TODO: Buscar autores por nome
-		return null;
+		EntityManager entityManager = sf.createEntityManager();
+		Query query = (Query) entityManager.createNativeQuery(montarQuery(txt));
+		return gerarLista(query);
+	}
+
+	private String montarQuery(String txt) {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT id_autor, nomeautor, pseud, paisnasc, anonasc FROM autores ");
+		if (txt != null) {
+			buffer.append("WHERE nomeautor LIKE '%");
+			buffer.append(txt);
+			buffer.append("%' ");
+		}
+		buffer.append("ORDER BY id_autor");
+		return buffer.toString();
+	}
+
+	private ArrayList<Autor> gerarLista(Query query) {
+		ArrayList<Autor> autores = new ArrayList<Autor>();
+		List<Object[]> lista = query.getResultList();
+		for (Object[] obj : lista) {
+			Autor a = new Autor();
+			a.setIdAutor(Integer.valueOf(obj[0].toString()));
+			a.setNomeautor(obj[1].toString());
+			a.setPseud(Boolean.valueOf(obj[2].toString()));
+			a.setPaisnasc(obj[3].toString());
+			a.setAnonasc(Integer.valueOf(obj[4].toString()));
+			autores.add(a);
+		}
+		return autores;
 	}
 }
